@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 
 const Home = () => {
-  const [male, setMale] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9])
-  const [female, setFemale] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9])
+  const [male, setMale] = useState([1, 2, 3, 4, 5, 6, 7])
+  const [female, setFemale] = useState([1, 2, 3, 4, 5, 6, 7])
   const [loading, setLoading] = useState(false)
   const [selectedMale, setSelectedMale] = useState('')
   const [selectedFemale, setSelectedFemale] = useState('')
@@ -11,22 +11,29 @@ const Home = () => {
     setLoading(true)
 
     setTimeout(() => {
-      const maleNum = male[Math.floor(Math.random() * male.length)]
-      const femaleNum = female[Math.floor(Math.random() * female.length)]
+      if (male.length > 0 && female.length > 0) {
+        const maleNum = male[Math.floor(Math.random() * male.length)]
+        const femaleNum = female[Math.floor(Math.random() * female.length)]
 
-      const newMale = male.filter((num) => num !== maleNum)
-      const newFemale = female.filter((num) => num !== femaleNum)
+        const newMale = male.filter((num) => num !== maleNum)
+        const newFemale = female.filter((num) => num !== femaleNum)
 
-      setSelectedMale(maleNum)
-      setMale(newMale)
-      setSelectedFemale(femaleNum)
-      setFemale(newFemale)
-      setLoading(false)
-    }, 4000)
+        setSelectedMale(maleNum)
+        setMale(newMale)
+        setSelectedFemale(femaleNum)
+        setFemale(newFemale)
+        setLoading(false)
+        return
+      } else {
+        reset()
+        setLoading(false)
+        return
+      }
+    }, 3000)
   }
   const reset = () => {
-    setFemale([1, 2, 3, 4, 5, 6, 7, 8, 9])
-    setMale([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    setFemale([1, 2, 3, 4, 5, 6, 7])
+    setMale([1, 2, 3, 4, 5, 6, 7])
     setSelectedFemale('')
     setSelectedMale('')
   }
